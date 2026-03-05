@@ -5,8 +5,8 @@ Auto-generate high-quality docstrings and type hints for Python, JavaScript, and
 ## Features
 
 - **Generate Docstrings**: Instantly generate context-aware docstrings/JSDoc blocks.
-  - Python: Supports `google`, `sphinx`, and `numpy` formats.
-  - JS/TS: Supports `jsdoc` and `tsdoc` formats.
+ - Python: Supports `google`, `sphinx`, and `numpy` formats.
+ - JS/TS: Supports `jsdoc` and `tsdoc` formats.
 - **Auto-Infer Type Hints (Python)**: Uses AI to guess the static types of arguments and return values and injects them directly into your function signature.
 - **Generate Both**: One command to add both typing and docstrings.
 - **Preview Mode**: Review changes before they are applied.
