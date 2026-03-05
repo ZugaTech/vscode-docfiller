@@ -1,0 +1,135 @@
+{
+    "name": "docfiller-ai",
+    "displayName": "DocFiller AI",
+    "description": "Auto-generate docstrings and type hints using GPT-4",
+    "version": "1.0.0",
+    "publisher": "antigravity",
+    "engines": {
+        "vscode": "^1.85.0"
+    },
+    "categories": [
+        "Other",
+        "Programming Languages"
+    ],
+    "activationEvents": [
+        "onLanguage:python",
+        "onLanguage:javascript",
+        "onLanguage:typescript",
+        "onLanguage:typescriptreact",
+        "onLanguage:javascriptreact"
+    ],
+    "main": "./dist/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "docfiller.generateDocstring",
+                "title": "DocFiller: Generate Docstring"
+            },
+            {
+                "command": "docfiller.generateTypeHints",
+                "title": "DocFiller: Add Type Hints"
+            },
+            {
+                "command": "docfiller.generateBoth",
+                "title": "DocFiller: Generate Docstring + Type Hints"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "editorLangId == python || editorLangId == javascript || editorLangId == typescript || editorLangId == typescriptreact || editorLangId == javascriptreact",
+                    "command": "docfiller.generateDocstring",
+                    "group": "docfiller@1"
+                },
+                {
+                    "when": "editorLangId == python",
+                    "command": "docfiller.generateTypeHints",
+                    "group": "docfiller@2"
+                },
+                {
+                    "when": "editorLangId == python",
+                    "command": "docfiller.generateBoth",
+                    "group": "docfiller@3"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "docfiller.generateDocstring",
+                "key": "ctrl+shift+d",
+                "mac": "cmd+shift+d",
+                "when": "editorTextFocus"
+            }
+        ],
+        "configuration": {
+            "title": "DocFiller AI",
+            "properties": {
+                "docfiller.openaiApiKey": {
+                    "type": "string",
+                    "default": "",
+                    "description": "OpenAI API Key (or set OPENAI_API_KEY env var)"
+                },
+                "docfiller.model": {
+                    "type": "string",
+                    "default": "gpt-4o",
+                    "enum": [
+                        "gpt-4o",
+                        "gpt-4-turbo",
+                        "gpt-3.5-turbo"
+                    ],
+                    "description": "OpenAI Model to use"
+                },
+                "docfiller.pythonDocstringFormat": {
+                    "type": "string",
+                    "default": "google",
+                    "enum": [
+                        "google",
+                        "sphinx",
+                        "numpy"
+                    ],
+                    "description": "Format for Python docstrings"
+                },
+                "docfiller.jsDocFormat": {
+                    "type": "string",
+                    "default": "jsdoc",
+                    "enum": [
+                        "jsdoc",
+                        "tsdoc"
+                    ],
+                    "description": "Format for JavaScript/TypeScript comments"
+                },
+                "docfiller.autoInferTypes": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically infer types when generating signatures"
+                },
+                "docfiller.showPreview": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show diff preview before inserting docstrings or type hints"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run package",
+        "compile": "webpack",
+        "watch": "webpack --watch",
+        "package": "webpack --mode production --devtool hidden-source-map",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.85.0",
+        "@types/node": "^20.0.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "eslint": "^8.0.0",
+        "ts-loader": "^9.5.0",
+        "typescript": "^5.2.0",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.0"
+    },
+    "dependencies": {
+        "openai": "^4.20.0"
+    }
+}
